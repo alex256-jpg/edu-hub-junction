@@ -17,6 +17,10 @@ import AdminLayout from "./layouts/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Students from "./pages/admin/Students";
 import Settings from "./pages/admin/Settings";
+import Marks from "./pages/admin/Marks";
+import ReportCards from "./pages/admin/ReportCards";
+import SmsNotifications from "./pages/admin/SmsNotifications";
+import Attendance from "./pages/admin/Attendance";
 
 // Student pages
 import StudentLayout from "./layouts/StudentLayout";
@@ -52,7 +56,10 @@ const App = () => (
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="students" element={<Students />} />
             <Route path="settings" element={<Settings />} />
-            {/* Add more admin routes here */}
+            <Route path="marks" element={<Marks />} />
+            <Route path="report-cards" element={<ReportCards />} />
+            <Route path="attendance" element={<Attendance />} />
+            <Route path="sms-notifications" element={<SmsNotifications />} />
             <Route index element={<Dashboard />} />
           </Route>
           
