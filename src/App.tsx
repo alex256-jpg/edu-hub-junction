@@ -18,6 +18,18 @@ import Dashboard from "./pages/admin/Dashboard";
 import Students from "./pages/admin/Students";
 import Settings from "./pages/admin/Settings";
 
+// Student pages
+import StudentLayout from "./layouts/StudentLayout";
+import StudentDashboard from "./pages/student/Dashboard";
+
+// Teacher pages
+import TeacherLayout from "./layouts/TeacherLayout";
+import TeacherDashboard from "./pages/teacher/Dashboard";
+
+// Parent pages
+import ParentLayout from "./layouts/ParentLayout";
+import ParentDashboard from "./pages/parent/Dashboard";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -42,6 +54,27 @@ const App = () => (
             <Route path="settings" element={<Settings />} />
             {/* Add more admin routes here */}
             <Route index element={<Dashboard />} />
+          </Route>
+          
+          {/* Student routes */}
+          <Route path="/student" element={<StudentLayout />}>
+            <Route path="dashboard" element={<StudentDashboard />} />
+            {/* Add more student routes here */}
+            <Route index element={<StudentDashboard />} />
+          </Route>
+          
+          {/* Teacher routes */}
+          <Route path="/teacher" element={<TeacherLayout />}>
+            <Route path="dashboard" element={<TeacherDashboard />} />
+            {/* Add more teacher routes here */}
+            <Route index element={<TeacherDashboard />} />
+          </Route>
+          
+          {/* Parent routes */}
+          <Route path="/parent" element={<ParentLayout />}>
+            <Route path="dashboard" element={<ParentDashboard />} />
+            {/* Add more parent routes here */}
+            <Route index element={<ParentDashboard />} />
           </Route>
           
           {/* Catch-all route */}
