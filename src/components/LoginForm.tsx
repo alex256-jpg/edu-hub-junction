@@ -1,14 +1,15 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [userType, setUserType] = useState("student");
@@ -31,11 +32,38 @@ const LoginForm = () => {
     
     // Simulate login request
     setTimeout(() => {
-      toast({
-        title: "Login Attempt",
-        description: `Attempted to login as ${userType} with username: ${credentials.username}`,
-        variant: "destructive"
-      });
+      // For demo purposes: different roles redirect to different dashboards
+      if (userType === 'admin' && credentials.username === 'admin' && credentials.password === 'admin') {
+        toast({
+          title: "Login Successful",
+          description: "Welcome, Administrator",
+        });
+        navigate('/admin/dashboard');
+      } else if (userType === 'teacher' && credentials.username === 'teacher' && credentials.password === 'teacher') {
+        toast({
+          title: "Login Successful",
+          description: "Welcome, Teacher",
+        });
+        navigate('/teacher/dashboard');
+      } else if (userType === 'student' && credentials.username === 'student' && credentials.password === 'student') {
+        toast({
+          title: "Login Successful",
+          description: "Welcome, Student",
+        });
+        navigate('/student/dashboard');
+      } else if (userType === 'parent' && credentials.username === 'parent' && credentials.password === 'parent') {
+        toast({
+          title: "Login Successful",
+          description: "Welcome, Parent",
+        });
+        navigate('/parent/dashboard');
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "Invalid credentials for " + userType + " role",
+          variant: "destructive"
+        });
+      }
       setLoading(false);
     }, 1500);
   };
@@ -63,7 +91,7 @@ const LoginForm = () => {
                   <Input 
                     id="username" 
                     name="username"
-                    placeholder="Enter your username" 
+                    placeholder={`Enter your ${userType} username`} 
                     value={credentials.username}
                     onChange={handleChange}
                     required
@@ -98,6 +126,11 @@ const LoginForm = () => {
                 >
                   {loading ? "Logging in..." : "Log In"}
                 </Button>
+
+                <div className="mt-4 p-3 bg-slate-50 rounded text-sm">
+                  <p className="font-medium mb-1">Demo Credentials:</p>
+                  <p>Use <span className="font-medium">{userType}</span> as both username and password</p>
+                </div>
               </div>
               
               <div className="mt-6 text-center text-sm text-gray-500">

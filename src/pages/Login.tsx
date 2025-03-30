@@ -40,6 +40,11 @@ const Login = () => {
                 <h4 className="font-medium text-gray-800">Teachers & Staff</h4>
                 <p className="text-gray-600 text-sm">Your staff ID is your username. The default password will be provided by the IT department.</p>
               </div>
+              
+              <div>
+                <h4 className="font-medium text-gray-800">Administrators</h4>
+                <p className="text-gray-600 text-sm">Use your admin credentials to access the complete school management system with full control.</p>
+              </div>
             </div>
             
             <div className="mt-6 text-center">
