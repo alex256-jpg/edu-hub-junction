@@ -25,14 +25,17 @@ import Attendance from "./pages/admin/Attendance";
 // Student pages
 import StudentLayout from "./layouts/StudentLayout";
 import StudentDashboard from "./pages/student/Dashboard";
+import Subjects from "./pages/student/Subjects";
 
 // Teacher pages
 import TeacherLayout from "./layouts/TeacherLayout";
 import TeacherDashboard from "./pages/teacher/Dashboard";
+import Grading from "./pages/teacher/Grading";
 
 // Parent pages
 import ParentLayout from "./layouts/ParentLayout";
 import ParentDashboard from "./pages/parent/Dashboard";
+import Academics from "./pages/parent/Academics";
 
 const queryClient = new QueryClient();
 
@@ -66,21 +69,21 @@ const App = () => (
           {/* Student routes */}
           <Route path="/student" element={<StudentLayout />}>
             <Route path="dashboard" element={<StudentDashboard />} />
-            {/* Add more student routes here */}
+            <Route path="subjects" element={<Subjects />} />
             <Route index element={<StudentDashboard />} />
           </Route>
           
           {/* Teacher routes */}
           <Route path="/teacher" element={<TeacherLayout />}>
             <Route path="dashboard" element={<TeacherDashboard />} />
-            {/* Add more teacher routes here */}
+            <Route path="grading" element={<Grading />} />
             <Route index element={<TeacherDashboard />} />
           </Route>
           
           {/* Parent routes */}
           <Route path="/parent" element={<ParentLayout />}>
             <Route path="dashboard" element={<ParentDashboard />} />
-            {/* Add more parent routes here */}
+            <Route path="academics" element={<Academics />} />
             <Route index element={<ParentDashboard />} />
           </Route>
           

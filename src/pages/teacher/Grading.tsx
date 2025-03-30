@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Save, Download, FileSpreadsheet, UserPlus } from "lucide-react";
+import { Search, Save, AlertCircle } from "lucide-react";
 
-const Marks = () => {
+const Grading = () => {
   const { toast } = useToast();
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
@@ -17,28 +17,21 @@ const Marks = () => {
   const [selectedAssessment, setSelectedAssessment] = useState('');
   const [markEntries, setMarkEntries] = useState({});
   
-  // Mock data for demonstration
+  // Mock data for demonstration - in a real app this would be the teacher's assigned classes/subjects
+  const myClasses = ["S2", "S3", "S4"];
+  
+  const mySubjects = [
+    "Mathematics", 
+    "Additional Mathematics"
+  ];
+
+  // Mock student data
   const students = [
     { id: 1, name: "Alice Namuli", admissionNumber: "CBC001" },
     { id: 2, name: "Bob Mukasa", admissionNumber: "CBC002" },
     { id: 3, name: "Carol Nakato", admissionNumber: "CBC003" },
     { id: 4, name: "David Okello", admissionNumber: "CBC004" },
     { id: 5, name: "Eva Kizza", admissionNumber: "CBC005" },
-  ];
-
-  const classes = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "S1", "S2", "S3", "S4", "S5", "S6"];
-  
-  const subjects = [
-    "English Language", 
-    "Mathematics", 
-    "Science", 
-    "Social Studies",
-    "Creative Arts",
-    "Physical Education",
-    "Religious Education",
-    "Local Language",
-    "Kiswahili",
-    "ICT"
   ];
   
   const assessmentTypes = [
@@ -53,8 +46,8 @@ const Marks = () => {
     // In a real app, this would fetch student data from a database
     console.log("Searching for:", { selectedClass, selectedSubject, selectedTerm, selectedAssessment });
     toast({
-      title: "Search Complete",
-      description: `Loaded marks for ${selectedClass} - ${selectedSubject}`,
+      title: "Class Loaded",
+      description: `Ready to enter marks for ${selectedClass} - ${selectedSubject}`,
     });
   };
 
@@ -74,35 +67,18 @@ const Marks = () => {
     });
   };
 
-  const handleExportMarks = () => {
-    // In a real app, this would export marks to Excel/CSV
-    console.log("Exporting marks");
-    toast({
-      title: "Export Started",
-      description: "Marks are being exported to spreadsheet",
-    });
-  };
-
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Marks Entry</h2>
-          <p className="text-muted-foreground">
-            Record and manage student marks using the CBC assessment framework
-          </p>
-        </div>
-        <div className="flex space-x-2">
-          <Button variant="outline" onClick={handleExportMarks}>
-            <FileSpreadsheet className="mr-2 h-4 w-4" />
-            Export
-          </Button>
-        </div>
+      <div>
+        <h2 className="text-3xl font-bold tracking-tight">Student Grading</h2>
+        <p className="text-muted-foreground">
+          Enter and manage marks for your assigned classes
+        </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Search Criteria</CardTitle>
+          <CardTitle>Select Class and Subject</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -113,7 +89,7 @@ const Marks = () => {
                   <SelectValue placeholder="Select class" />
                 </SelectTrigger>
                 <SelectContent>
-                  {classes.map(cls => (
+                  {myClasses.map(cls => (
                     <SelectItem key={cls} value={cls}>{cls}</SelectItem>
                   ))}
                 </SelectContent>
@@ -127,7 +103,7 @@ const Marks = () => {
                   <SelectValue placeholder="Select subject" />
                 </SelectTrigger>
                 <SelectContent>
-                  {subjects.map(subject => (
+                  {mySubjects.map(subject => (
                     <SelectItem key={subject} value={subject}>{subject}</SelectItem>
                   ))}
                 </SelectContent>
@@ -169,7 +145,7 @@ const Marks = () => {
             disabled={!selectedClass || !selectedSubject || !selectedTerm || !selectedAssessment}
           >
             <Search className="mr-2 h-4 w-4" />
-            Search
+            Load Students
           </Button>
         </CardContent>
       </Card>
@@ -214,7 +190,11 @@ const Marks = () => {
               </Table>
             </div>
             
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 flex items-center justify-between">
+              <div className="text-sm text-muted-foreground flex items-center">
+                <AlertCircle className="mr-2 h-4 w-4 text-amber-500" />
+                Marks will be visible to students and parents after approval
+              </div>
               <Button onClick={handleSaveMarks}>
                 <Save className="mr-2 h-4 w-4" />
                 Save Marks
@@ -227,4 +207,4 @@ const Marks = () => {
   );
 };
 
-export default Marks;
+export default Grading;
